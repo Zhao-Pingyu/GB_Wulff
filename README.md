@@ -1,7 +1,7 @@
 ## GB_Wulff
 The GB_Wulff package is used for constructing the Wulff shapes of cylindrical [001] tilt boundaries with any misorientation angle around the tilt axis. It integrates Atomsk for constructing bicrystal structures containing grain boundaries, and LAMMPS for performing atomistic simulations to determine grain boundary energy.
 
-# Files:
+**Files:**
 
 *create_angle.py*: generates the input files for constructing the bicrystal structures of the grain boundaries covering the full circle of inclination angles (0-360 ̊ ) for the defined misorientation angle
 
