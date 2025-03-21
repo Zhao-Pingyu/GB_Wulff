@@ -10,3 +10,5 @@ The GB_Wulff package is used for constructing the Wulff shapes of cylindrical [0
 *create_lammps.py*: generates the input files for the LAMMPS software, which is used to search for the ground states of the constructed grain boundaries, and compute the grain boundary energies
 
 *wulff.py*: extracts the computed ground state grain boundary energies for the different inclination angles, and perform Wulff construction to obtain the Wulff shape
+
+*ni1.set*: interatomic potential for Ni, used for LAMMPS simulations
