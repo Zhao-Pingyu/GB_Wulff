@@ -1,6 +1,6 @@
 ## GB_Wulff
 The GB_Wulff package is used for constructing the Wulff shapes of cylindrical [001] tilt boundaries with any misorientation angle around the tilt axis. It integrates Atomsk ("Atomsk: A tool for manipulating and converting atomic data files"
-Pierre Hirel, Comput. Phys. Comm. 197 (2015) 212-219) for constructing bicrystal structures containing grain boundaries, and LAMMPS for performing atomistic simulations to determine grain boundary energy. The code for Wulff shape construction is built upon the implementation by termistotel: https://github.com/termistotel/Wulff-constructions.
+Pierre Hirel, Comput. Phys. Comm. 197 (2015) 212-219) for constructing bicrystal structures containing grain boundaries, and LAMMPS (https://www.lammps.org/) for performing atomistic simulations to determine grain boundary energy. The code for Wulff shape construction is built upon the implementation by termistotel: https://github.com/termistotel/Wulff-constructions.
 
 **Files:**
 
