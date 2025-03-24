@@ -6,37 +6,52 @@ from natsort import natsorted
 import matplotlib.pyplot as plt
 
 def get_energy(angle,files):
-    # Initialize lists for storing N and ecoh
-    N = []
-    ecoh = []
-
+    """
+    Function for calculating the grain boundary energies of the different boundary plane inclinations
+    """
+    
+    A = np.pi*(15*3.52)**2
+    COH = -4.45000000526639
     # Open a file for writing the output
     filename = f'{angle}-inc.txt'
+    
     with open(filename, 'w') as output_file:
-        for f in files:
-            # Split the filename into parts
-            nms = f[:-7].split("-")
+        for file in files:
+            inc = re.findall(r'\d+',file)[2]
+            B = []
+            SE = []
+            N = []
+            with open(file, 'r') as infile:
+                data = infile.readlines()
+                for line in data:
+                    match1 = re.match(r'b (\S+)', line)
+                    match2 = re.match(r'Sphere energy (\S+)', line)
+                    match3 = re.match(r'Number of atoms (\S+)', line)
+                    if match1:
+                        b = re.findall(r"[-+]?(?:\d*\.*\d+)", line)[0]
+                        B.append(b)
+                    if match2:
+                        s = re.findall(r"[-+]?(?:\d*\.*\d+)", line)[0]
+                        SE.append(s)
+                    if match3:
+                        n = re.findall(r"[-+]?(?:\d*\.*\d+)", line)[0]
+                        N.append(n)
 
-            try:
-                # Open the file and read its lines
-                with open(f, 'r') as infile:
-                    data = infile.readlines()
+            B = np.array(B).astype('float')
+            SE = np.array(SE).astype('float')
+            N = np.array(N).astype('float')
+            GBE = (SE-N*COH)/A
+            gbe = np.min(GBE)
 
-                    # Extract the desired values using regular expressions
-                    n = re.findall(r"[-+]?(?:\d*\.*\d+)", data[-4])[0] 
-                    e = re.findall(r"[-+]?(?:\d*\.*\d+)", data[-6])[0] 
+            # Write the extracted data to the output file
+            output_file.write(f"{inc} {gbe}\n")
 
-                    # Write the extracted data to the output file
-                    output_file.write(f"{nms[2]} {e} {n}\n")
-
-                    # Append the values to the lists
-                    N.append(n)
-                    ecoh.append(e)
-            except Exception as ex:
-                output_file.write(f"Error processing file {f}: {ex}\n")
-                print(f"Error processing file {f}: {ex}")
 
 def get_full_range(En):
+    """
+    Function for obtaining the full range of boundary plane inclinations (0-360 degrees) through crystal symmetry
+    """
+    
     theta = np.arange(0,361)
     # Load the energy data from the specified file
     try:
@@ -59,6 +74,10 @@ def get_full_range(En):
     return En
         
 def plot_wulff(En):
+    """
+    Function for Wulff shape construction
+    """
+    
     fi = np.arange(0,361)
     r = En*20
     x = r*np.cos(fi*np.pi/180)
